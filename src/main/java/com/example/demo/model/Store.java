@@ -9,13 +9,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Store {
 
     @Id
-    private long _id;
+    private ObjectId _id;
     private String name;
     private String description;
     private String walletAddress;
+    private String imageUrl;
+    private ObjectId userId;
 
-    public long get_id() {
-        return _id;
+    public Store(String name, String description){
+        this.name = name;
+        this.description = description;
     }
 
     public String getName() {
@@ -28,6 +31,22 @@ public class Store {
 
     public String getDescription() {
         return description;
+    }
+
+    public ObjectId getUserId() {
+        return userId;
+    }
+
+    public void setUserId(ObjectId userId) {
+        this.userId = userId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public void setDescription(String description) {

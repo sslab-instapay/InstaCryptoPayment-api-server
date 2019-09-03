@@ -20,7 +20,8 @@ public class User implements UserDetails {
     private String email;
     private String password;
     private String walletAddress;
-
+    private String bankAccount;
+    private Enum userType;
 
     public void setName(String name) {
         this.name = name;
@@ -44,6 +45,30 @@ public class User implements UserDetails {
 
     public String getName() {
         return name;
+    }
+
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    public ObjectId get_id() {
+        return _id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Enum getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Enum userType) {
+        this.userType = userType;
     }
 
     @Override

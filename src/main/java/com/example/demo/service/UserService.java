@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Store;
 import com.example.demo.model.User;
 import com.example.demo.model.dto.UserDTO;
+import com.example.demo.repository.StoreRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -20,6 +22,9 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Autowired
+    private StoreRepository storeRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -27,8 +32,22 @@ public class UserService implements UserDetailsService {
         return this.userRepository.findByEmail(username);
     }
 
-    public User save(User user){
+    public User createUser(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+
+    public Store registerStore(Store store, UserDetails userDetails){
+        User user = userRepository.findByEmail(userDetails.getUsername());
+        store.setUserId(user.get_id());
+        store.setWalletAddress(user.getWalletAddress());
+        return storeRepository.save(store);
+    }
+
+    public Store getUserStore(UserDetails userDetails){
+        User user = userRepository.findByEmail(userDetails.getUsername());
+
+        return storeRepository.findByUserId(user.get_id());
+    }
+
 }
