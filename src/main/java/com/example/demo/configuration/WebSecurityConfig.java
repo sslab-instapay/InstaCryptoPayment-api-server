@@ -15,8 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@EnableWebSecurity
-// 스프링 세큐리티 서포트하는 클래스.
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -36,11 +34,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests()
-                .antMatchers("/auth/signin").permitAll()
-                .antMatchers(HttpMethod.GET, "/users/**").hasAnyAuthority()
-                .antMatchers(HttpMethod.POST, "/users/**").permitAll()
-                .anyRequest().authenticated()
+                    .authorizeRequests()
+                    .antMatchers("/auth/signin").permitAll()
+                    .antMatchers(HttpMethod.GET, "/users/**").hasAnyAuthority()
+                    .antMatchers(HttpMethod.POST, "/users/**").permitAll()
+                    .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
     }
